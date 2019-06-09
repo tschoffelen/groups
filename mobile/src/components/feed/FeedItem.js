@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { View, Text, StyleSheet } from 'react-native'
 import Avatar from '@components/feed/Avatar'
 import moment from 'moment'
+import Attachment from '@components/feed/Attachment'
 
 export default class FeedItem extends React.Component {
   static propTypes = {
@@ -21,6 +22,9 @@ export default class FeedItem extends React.Component {
             <Text style={styles.time} numberOfLines={1}>{moment(data.createdAt).fromNow(true)}</Text>
           </View>
           <Text style={styles.body}>{data.description}</Text>
+          {(data.attachments || []).map((attachment) => (
+            <Attachment key={attachment.id} data={attachment}/>
+          ))}
         </View>
       </View>
     )
@@ -29,8 +33,10 @@ export default class FeedItem extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 26,
-    paddingTop: 0,
+    paddingLeft: 26,
+    paddingRight: 18,
+    paddingTop: 12,
+    paddingBottom: 32,
     flexDirection: 'row'
   },
   content: {
@@ -58,7 +64,7 @@ const styles = StyleSheet.create({
   time: {
     marginLeft: 10,
     color: '#d1d2d3',
-    fontSize: 16,
-    lineHeight: 22
+    fontSize: 15,
+    lineHeight: 21
   }
 })
